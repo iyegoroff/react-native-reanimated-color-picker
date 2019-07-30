@@ -1,6 +1,6 @@
 import React from 'react'
 import Animated from 'react-native-reanimated'
-import { View, ViewStyle, StyleSheet, LayoutChangeEvent } from 'react-native'
+import { View, ViewStyle, StyleSheet, LayoutChangeEvent, StyleProp} from 'react-native'
 import {
   PanGestureHandlerGestureEvent,
   TapGestureHandlerGestureEvent,
@@ -28,8 +28,8 @@ const {
 } = Animated
 
 type Props = {
+  readonly style: StyleProp<ViewStyle>
   readonly initialValue?: number
-  readonly style: ViewStyle
   readonly onValueInit: (value: Animated.Node<number>, gestureState: Animated.Node<number>) => void
   readonly thumbWidth?: number
 }
@@ -112,7 +112,7 @@ export class ValueSlider extends React.PureComponent<Props, State> {
     }
   }
 
-  private static size(style?: ViewStyle): Size {
+  private static size(style?: StyleProp<ViewStyle>): Size {
     if (style !== undefined) {
       const { width, height } = StyleSheet.flatten(style)
 

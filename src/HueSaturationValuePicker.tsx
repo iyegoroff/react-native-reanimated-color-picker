@@ -1,13 +1,13 @@
 import React from 'react'
-import { ViewStyle } from 'react-native'
+import { ViewStyle, StyleProp } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { State as GestureState } from 'react-native-gesture-handler'
 import { HSV, HueSaturationWheel } from './HueSaturationWheel'
 import { ValueSlider } from './ValueSlider'
 
 type Props = {
-  readonly wheelStyle: ViewStyle,
-  readonly sliderStyle: ViewStyle,
+  readonly wheelStyle: StyleProp<ViewStyle>,
+  readonly sliderStyle: StyleProp<ViewStyle>,
   readonly snapToCenter?: number
   readonly onColorChangeComplete?: (color: HSV) => void
   readonly onColorChange?: (color: HSV) => void

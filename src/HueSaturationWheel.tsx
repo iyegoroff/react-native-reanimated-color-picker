@@ -1,6 +1,6 @@
 // tslint:disable:max-file-line-count
 import React from 'react'
-import { View, ViewStyle, StyleSheet, LayoutChangeEvent } from 'react-native'
+import { View, ViewStyle, StyleSheet, LayoutChangeEvent, StyleProp } from 'react-native'
 import {
   State as GestureState,
   PanGestureHandlerGestureEvent,
@@ -41,7 +41,7 @@ export type HSV = {
 }
 
 type Props = {
-  readonly style: ViewStyle,
+  readonly style: StyleProp<ViewStyle>,
   readonly snapToCenter?: number
   readonly onColorChangeComplete?: (color: HSV) => void
   readonly onColorChange?: (color: HSV) => void
@@ -236,7 +236,7 @@ export class HueSaturationWheel extends React.PureComponent<Props, State> {
     }
   }
 
-  private static side(style?: ViewStyle): number | undefined {
+  private static side(style?: StyleProp<ViewStyle>): number | undefined {
     if (style !== undefined) {
       const { width, height } = StyleSheet.flatten(style)
 

@@ -14,7 +14,7 @@ type Props = {
   readonly thumbSize?: number
   readonly initialHue?: number
   readonly initialSaturation?: number
-  readonly initailValue?: number
+  readonly initialValue?: number
 }
 
 type State = {
@@ -36,7 +36,7 @@ export class HueSaturationValuePicker extends React.PureComponent<Props, State> 
       thumbSize,
       snapToCenter,
       initialHue,
-      initailValue,
+      initialValue,
       initialSaturation,
       onColorChange,
       onColorChangeComplete
@@ -57,7 +57,7 @@ export class HueSaturationValuePicker extends React.PureComponent<Props, State> 
           thumbRadius={thumbSize}
         />
         <ValueSlider
-          initialValue={initailValue}
+          initialValue={initialValue}
           style={sliderStyle}
           onValueInit={this.valueInit}
           thumbWidth={thumbSize}

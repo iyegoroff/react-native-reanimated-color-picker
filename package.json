@@ -1,0 +1,51 @@
+{
+  "name": "react-native-reanimated-color-picker",
+  "version": "0.0.0",
+  "description": "Natively animated HSV color picker for iOS & Android",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "preversion": "npm run build && npm run lint",
+    "postversion": "git push && git push --tags",
+    "build": "rm -rf dist && mkdir dist && tsc -p src",
+    "lint": "tslint -p src",
+    "watch": "npm run build -- --watch"
+  },
+  "keywords": [
+    "react-native",
+    "reanimated",
+    "color-picker"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "author": "iyegoroff <iegoroff@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-reanimated": "*",
+    "react-native-gesture-handler": "*",
+    "react-native-image-filter-kit": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.23",
+    "@types/react-native": "^0.60.2",
+    "react-native-gesture-handler": "^1.3.0",
+    "react-native-image-filter-kit": "^0.5.9",
+    "react-native-reanimated": "github:kmagiera/react-native-reanimated#a7e3ffe29c9d41e290ac818daca7c571c66d3abf",
+    "tslint": "^5.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.5.3"
+  },
+  "bugs": {
+    "url": "https://github.com/iyegoroff/react-native-reanimated-color-picker/issues"
+  },
+  "homepage": "https://github.com/iyegoroff/react-native-reanimated-color-picker#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iyegoroff/react-native-reanimated-color-picker.git"
+  }
+}

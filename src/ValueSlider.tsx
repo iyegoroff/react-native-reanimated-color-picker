@@ -1,6 +1,6 @@
 import React from 'react'
 import Animated from 'react-native-reanimated'
-import { View, ViewStyle, StyleSheet, LayoutChangeEvent, StyleProp} from 'react-native'
+import { View, ViewStyle, StyleSheet, LayoutChangeEvent, StyleProp } from 'react-native'
 import {
   PanGestureHandlerGestureEvent,
   TapGestureHandlerGestureEvent,

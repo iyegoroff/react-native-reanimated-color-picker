@@ -231,7 +231,7 @@ The library doesn't provide any color conversion functions, so you have to use a
   <tr>
     <td>initialValue</td>
     <td><code>number</code></td>
-    <td><code>0</code></td>
+    <td><code>1</code></td>
     <td>[0..1]</td>
   </tr>
 </table>

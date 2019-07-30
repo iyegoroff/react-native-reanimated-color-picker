@@ -1,6 +1,6 @@
 {
   "name": "react-native-reanimated-color-picker",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Natively animated HSV color picker for iOS & Android",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

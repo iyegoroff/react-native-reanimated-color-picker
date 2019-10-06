@@ -74,7 +74,8 @@ type State = {
 export class HueSaturationWheel extends React.PureComponent<Props, State> {
 
   static defaultProps: Partial<Props> = {
-    valueGestureState: new Animated.Value(GestureState.END),
+    value: new Value(1),
+    valueGestureState: new Animated.Value(GestureState.UNDETERMINED),
     thumbRadius: 50
   }
 
@@ -90,9 +91,9 @@ export class HueSaturationWheel extends React.PureComponent<Props, State> {
         HueSaturationWheel.state(
           side,
           thumbRadius,
+          value!,
           0,
           snapToCenter,
-          value,
           initialHue,
           initialSaturation
         )
@@ -143,9 +144,9 @@ export class HueSaturationWheel extends React.PureComponent<Props, State> {
   private static state(
     side: number,
     thumbRadius: number,
+    value: Animated.Node<number>,
     codeKey: number = 0,
     snapToCenter: number = 0,
-    value: Animated.Node<number> = new Value(1),
     initialHue: number = 0,
     initialSaturation: number = 0
   ): Required<State> {
@@ -278,9 +279,9 @@ export class HueSaturationWheel extends React.PureComponent<Props, State> {
         this.setState(HueSaturationWheel.state(
           side,
           thumbRadius,
+          value!,
           prevState.codeKey,
           snapToCenter,
-          value,
           initialHue,
           initialSaturation
         ))

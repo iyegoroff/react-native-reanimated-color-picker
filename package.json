@@ -18,7 +18,9 @@
   ],
   "files": [
     "dist",
-    "src"
+    "src",
+    "*.md",
+    "LICENSE"
   ],
   "author": "iyegoroff <iegoroff@gmail.com>",
   "license": "MIT",

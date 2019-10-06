@@ -1,3 +1,3 @@
 export { HueSaturationValuePicker } from './HueSaturationValuePicker'
-export { HueSaturationWheel } from './HueSaturationWheel'
+export { HueSaturationWheel, HSV } from './HueSaturationWheel'
 export { ValueSlider } from './ValueSlider'

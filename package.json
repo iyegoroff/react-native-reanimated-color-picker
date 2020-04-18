@@ -36,7 +36,7 @@
     "@types/react-native": "^0.60.2",
     "react-native-gesture-handler": "^1.3.0",
     "react-native-image-filter-kit": "^0.5.9",
-    "react-native-reanimated": "github:kmagiera/react-native-reanimated#a7e3ffe29c9d41e290ac818daca7c571c66d3abf",
+    "react-native-reanimated": "1.7.1",
     "tslint": "^5.18.0",
     "tslint-config-standard": "^8.0.1",
     "tslint-react": "^4.0.0",

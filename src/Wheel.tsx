@@ -127,7 +127,7 @@ export const Wheel = React.memo((props: Props) => {
                   <Animated.Code
                     key={`change_complete_${codeKey}`}
                     exec={
-                      cond(
+                      cond<GestureState>(
                         and(
                           or(
                             eq(gestureState, GestureState.END),

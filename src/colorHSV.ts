@@ -1,12 +1,12 @@
 import Animated from 'react-native-reanimated'
 
-const { multiply, divide, abs, sub, modulo, color, round, add, cond, lessThan } = Animated
+const { multiply, divide, abs, sub, modulo, color, round, add, cond, lessThan, proc } = Animated
 
-export function colorHSV(
+export const colorHSV = proc((
   h: Animated.Adaptable<number>,
   s: Animated.Adaptable<number>,
   v: Animated.Adaptable<number>
-): Animated.Node<number> {
+): Animated.Node<number> => {
   // Converts color from HSV format into RGB
   // Formula explained here: https://www.rapidtables.com/convert/color/hsv-to-rgb.html
   const c = multiply(v, s)
@@ -48,4 +48,4 @@ export function colorHSV(
       )
     )
   )
-}
+})

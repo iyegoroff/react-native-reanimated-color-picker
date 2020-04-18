@@ -153,8 +153,8 @@ export class HueSaturationWheel extends React.PureComponent<Props, State> {
     const halfThumbSize = thumbRadius / 2
     const center = HueSaturationWheel.center(side, thumbRadius)
     const radius = center
-    const startX = new Value(0)
-    const startY = new Value(0)
+    const startX = new Value<number>(0)
+    const startY = new Value<number>(0)
     const cartesian = HueSaturationWheel.toCartesian(-initialHue, initialSaturation * radius)
     const posX = new Value(center + cartesian.x)
     const posY = new Value(center + cartesian.y)

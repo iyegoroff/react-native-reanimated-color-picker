@@ -5,10 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "postinstall": "patch-package",
     "preversion": "npm run build && npm run lint",
     "postversion": "git push && git push --tags",
-    "build": "rm -rf dist && mkdir dist && tsc -p src",
+    "build": "patch-package && rm -rf dist && mkdir dist && tsc -p src",
     "lint": "tslint -p src",
     "watch": "npm run build -- --watch"
   },

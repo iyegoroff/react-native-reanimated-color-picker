@@ -28,7 +28,7 @@ export class HueSaturationValuePicker extends React.PureComponent<
 > {
   state: State = {
     value: new Animated.Value(1),
-    valueGestureState: new Animated.Value(GestureState.UNDETERMINED),
+    valueGestureState: new Animated.Value(GestureState.UNDETERMINED)
   }
 
   render() {
@@ -41,7 +41,7 @@ export class HueSaturationValuePicker extends React.PureComponent<
       initialValue,
       initialSaturation,
       onColorChange,
-      onColorChangeComplete,
+      onColorChangeComplete
     } = this.props
     const { value, valueGestureState } = this.state
 

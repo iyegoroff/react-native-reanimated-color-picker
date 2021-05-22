@@ -11,7 +11,7 @@ const {
   add,
   cond,
   lessThan,
-  proc,
+  proc
 } = Animated
 
 export const colorHSV = proc(

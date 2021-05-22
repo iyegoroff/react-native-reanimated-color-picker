@@ -4,7 +4,7 @@ import {
   PanGestureHandler,
   TapGestureHandler,
   PanGestureHandlerGestureEvent,
-  TapGestureHandlerGestureEvent,
+  TapGestureHandlerGestureEvent
 } from 'react-native-gesture-handler'
 import { View, ViewStyle, StyleSheet } from 'react-native'
 import { LinearGradient, ImagePlaceholder } from 'react-native-image-filter-kit'
@@ -57,9 +57,9 @@ export const Slider = React.memo((props: Props) => {
                     backgroundColor: thumbColor,
                     transform: [
                       { translateX: translate },
-                      { translateX: offset },
-                    ],
-                  },
+                      { translateX: offset }
+                    ]
+                  }
                 ]}
               />
             </View>
@@ -79,17 +79,17 @@ type Styles = {
 const styles = StyleSheet.create<Styles>({
   container: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   slider: {
     width: '100%',
     height: '100%',
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   thumb: {
     position: 'absolute',
     borderColor: 'white',
     borderWidth: 2,
-    borderRadius: 5,
-  },
+    borderRadius: 5
+  }
 })

@@ -5,14 +5,14 @@ import {
   PanGestureHandlerGestureEvent,
   TapGestureHandler,
   PanGestureHandler,
-  State as GestureState,
+  State as GestureState
 } from 'react-native-gesture-handler'
 import { View, ViewStyle, StyleSheet } from 'react-native'
 import {
   SrcInComposition,
   SweepGradient,
   ImagePlaceholder,
-  RadialGradient,
+  RadialGradient
 } from 'react-native-image-filter-kit'
 import { HueSaturationWheel } from './HueSaturationWheel'
 
@@ -39,7 +39,7 @@ type Props = {
   readonly onColorChangeComplete?: ([
     hue,
     saturation,
-    value,
+    value
   ]: readonly number[]) => void
   readonly onColorChange?: ([hue, saturation, value]: readonly number[]) => void
 }
@@ -53,7 +53,7 @@ const colors: GradientProps['colors'] = [
   '#00FFFF',
   '#0000FF',
   '#FF00FF',
-  '#FF0000',
+  '#FF0000'
 ]
 const stops: GradientProps['stops'] = [0, 0.165, 0.33, 0.495, 0.66, 0.825, 1]
 const radialColors: GradientProps['colors'] = ['#00000000', '#000000FF']
@@ -76,7 +76,7 @@ export const Wheel = React.memo((props: Props) => {
     valueGestureState,
     hue,
     saturation,
-    value,
+    value
   } = props
 
   const thumbOffset = -thumbSize / 2
@@ -85,12 +85,12 @@ export const Wheel = React.memo((props: Props) => {
   const imageStyle = {
     width: imageSide,
     height: imageSide,
-    borderRadius: imageSide / 2,
+    borderRadius: imageSide / 2
   }
   const thumbStyle = {
     width: thumbSize,
     height: thumbSize,
-    borderRadius: thumbSize / 2,
+    borderRadius: thumbSize / 2
   }
 
   return (
@@ -122,7 +122,7 @@ export const Wheel = React.memo((props: Props) => {
                 style={[
                   imageStyle,
                   styles.wheelOverlay,
-                  { opacity: wheelOpacity },
+                  { opacity: wheelOpacity }
                 ]}
               />
               <Animated.View
@@ -136,9 +136,9 @@ export const Wheel = React.memo((props: Props) => {
                       { translateX },
                       { translateY },
                       { translateX: thumbOffset },
-                      { translateY: thumbOffset },
-                    ],
-                  },
+                      { translateY: thumbOffset }
+                    ]
+                  }
                 ]}
               />
               {onColorChangeComplete !== undefined ? (
@@ -170,7 +170,7 @@ export const Wheel = React.memo((props: Props) => {
                         valueGestureState as Animated.Value<GestureState>,
                         GestureState.UNDETERMINED
                       ),
-                      call([hue, saturation, value], onColorChangeComplete),
+                      call([hue, saturation, value], onColorChangeComplete)
                     ]
                   )}
                 />
@@ -216,20 +216,20 @@ type Styles = {
 const styles = StyleSheet.create<Styles>({
   container: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   wheel: {
     width: '100%',
     height: '100%',
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   wheelOverlay: {
     position: 'absolute',
-    backgroundColor: 'black',
+    backgroundColor: 'black'
   },
   thumb: {
     position: 'absolute',
     borderColor: 'white',
-    borderWidth: 2,
-  },
+    borderWidth: 2
+  }
 })

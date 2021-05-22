@@ -5,12 +5,12 @@ import {
   ViewStyle,
   StyleSheet,
   LayoutChangeEvent,
-  StyleProp,
+  StyleProp
 } from 'react-native'
 import {
   PanGestureHandlerGestureEvent,
   TapGestureHandlerGestureEvent,
-  State as GestureState,
+  State as GestureState
 } from 'react-native-gesture-handler'
 import { Slider } from './Slider'
 import { Size } from './size'
@@ -30,7 +30,7 @@ const {
   neq,
   multiply,
   round,
-  sub,
+  sub
 } = Animated
 
 type Props = {
@@ -59,7 +59,7 @@ type State = {
 
 export class ValueSlider extends React.PureComponent<Props, State> {
   static defaultProps: Partial<Props> = {
-    thumbWidth: 50,
+    thumbWidth: 50
   }
 
   constructor(props: Props) {
@@ -108,7 +108,7 @@ export class ValueSlider extends React.PureComponent<Props, State> {
         {
           nativeEvent: ({
             x,
-            state,
+            state
           }: {
             x: number
             y: number
@@ -122,10 +122,10 @@ export class ValueSlider extends React.PureComponent<Props, State> {
                   neq(gestureState, GestureState.FAILED)
                 ),
                 set(pos, sub(x, thumbWidth / 2))
-              ),
-            ]),
-        },
-      ]),
+              )
+            ])
+        }
+      ])
     }
   }
 
@@ -219,8 +219,8 @@ export class ValueSlider extends React.PureComponent<Props, State> {
 
   private layout = ({
     nativeEvent: {
-      layout: { width, height },
-    },
+      layout: { width, height }
+    }
   }: LayoutChangeEvent) => {
     this.setState({ width, height })
   }

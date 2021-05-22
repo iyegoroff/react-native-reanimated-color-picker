@@ -1,10 +1,16 @@
 import React from 'react'
 import Animated from 'react-native-reanimated'
-import { View, ViewStyle, StyleSheet, LayoutChangeEvent, StyleProp } from 'react-native'
+import {
+  View,
+  ViewStyle,
+  StyleSheet,
+  LayoutChangeEvent,
+  StyleProp,
+} from 'react-native'
 import {
   PanGestureHandlerGestureEvent,
   TapGestureHandlerGestureEvent,
-  State as GestureState
+  State as GestureState,
 } from 'react-native-gesture-handler'
 import { Slider } from './Slider'
 import { Size } from './size'
@@ -24,13 +30,16 @@ const {
   neq,
   multiply,
   round,
-  sub
+  sub,
 } = Animated
 
 type Props = {
   readonly style: StyleProp<ViewStyle>
   readonly initialValue?: number
-  readonly onValueInit: (value: Animated.Node<number>, gestureState: Animated.Node<number>) => void
+  readonly onValueInit: (
+    value: Animated.Node<number>,
+    gestureState: Animated.Node<GestureState>
+  ) => void
   readonly thumbWidth?: number
 }
 
@@ -44,14 +53,13 @@ type State = {
   readonly panGestureEvent?: (
     event: PanGestureHandlerGestureEvent | TapGestureHandlerGestureEvent
   ) => void
-  readonly gestureState?: Animated.Node<number>
+  readonly gestureState?: Animated.Node<GestureState>
   readonly codeKey?: number
 }
 
 export class ValueSlider extends React.PureComponent<Props, State> {
-
   static defaultProps: Partial<Props> = {
-    thumbWidth: 50
+    thumbWidth: 50,
   }
 
   constructor(props: Props) {
@@ -60,9 +68,10 @@ export class ValueSlider extends React.PureComponent<Props, State> {
     const { style, thumbWidth, initialValue } = props
     const { width, height } = ValueSlider.size(style)
 
-    this.state = width === undefined || height === undefined || thumbWidth === undefined
-      ? {}
-      : ValueSlider.state(width, height, thumbWidth, 0, initialValue)
+    this.state =
+      width === undefined || height === undefined || thumbWidth === undefined
+        ? {}
+        : ValueSlider.state(width, height, thumbWidth, 0, initialValue)
   }
 
   private static state(
@@ -95,20 +104,28 @@ export class ValueSlider extends React.PureComponent<Props, State> {
       value,
       // tslint:disable-next-line: no-any
       thumbColor: color(col, col, col) as any,
-      panGestureEvent: event([{
-        nativeEvent: ({ x, state }: { x: number, y: number, state: GestureState }) => (
-          block([
-            set(gestureState, state),
-            cond(
-              and(
-                neq(gestureState, GestureState.UNDETERMINED),
-                neq(gestureState, GestureState.FAILED)
+      panGestureEvent: event([
+        {
+          nativeEvent: ({
+            x,
+            state,
+          }: {
+            x: number
+            y: number
+            state: GestureState
+          }) =>
+            block([
+              set(gestureState, state),
+              cond(
+                and(
+                  neq(gestureState, GestureState.UNDETERMINED),
+                  neq(gestureState, GestureState.FAILED)
+                ),
+                set(pos, sub(x, thumbWidth / 2))
               ),
-              set(pos, sub(x, thumbWidth / 2))
-            )
-          ])
-        )
-      }])
+            ]),
+        },
+      ]),
     }
   }
 
@@ -135,22 +152,25 @@ export class ValueSlider extends React.PureComponent<Props, State> {
   componentDidUpdate(prevProps: Props, prevState: State) {
     const { style, onValueInit, thumbWidth, initialValue } = this.props
     const { width, height } = StyleSheet.flatten(style)
-    const { width: prevWidth, height: prevHeight } = StyleSheet.flatten(prevProps.style)
+    const { width: prevWidth, height: prevHeight } = StyleSheet.flatten(
+      prevProps.style
+    )
     const size = ValueSlider.size(style)
 
     if (prevHeight !== height || prevWidth !== width) {
       this.setState(size)
-
     } else {
-      const { width: curWidth = size.width, height: curHeight = size.height } = this.state
+      const { width: curWidth = size.width, height: curHeight = size.height } =
+        this.state
 
-      if ((
-        curWidth !== undefined && curHeight !== undefined && thumbWidth !== undefined
-      ) && (
-        curWidth !== prevState.width ||
-        curHeight !== prevState.height ||
-        thumbWidth !== prevProps.thumbWidth
-      )) {
+      if (
+        curWidth !== undefined &&
+        curHeight !== undefined &&
+        thumbWidth !== undefined &&
+        (curWidth !== prevState.width ||
+          curHeight !== prevState.height ||
+          thumbWidth !== prevProps.thumbWidth)
+      ) {
         const state = ValueSlider.state(
           curWidth,
           curHeight,
@@ -166,7 +186,8 @@ export class ValueSlider extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { width, height, translate, thumbColor, panGestureEvent, codeKey } = this.state
+    const { width, height, translate, thumbColor, panGestureEvent, codeKey } =
+      this.state
     const { style, thumbWidth } = this.props
 
     return (
@@ -175,30 +196,32 @@ export class ValueSlider extends React.PureComponent<Props, State> {
         key={`slider_${codeKey}`}
         onLayout={this.layout}
       >
-        {(
-          width !== undefined &&
-          height !== undefined &&
-          thumbColor !== undefined &&
-          translate !== undefined &&
-          panGestureEvent !== undefined &&
-          thumbWidth !== undefined
-        ) ? (
-            <Slider
-              width={width}
-              height={height}
-              translate={translate}
-              thumbColor={thumbColor}
-              panGestureEvent={panGestureEvent}
-              thumbWidth={thumbWidth}
-            />
-          )
-          : false
-        }
+        {width !== undefined &&
+        height !== undefined &&
+        thumbColor !== undefined &&
+        translate !== undefined &&
+        panGestureEvent !== undefined &&
+        thumbWidth !== undefined ? (
+          <Slider
+            width={width}
+            height={height}
+            translate={translate}
+            thumbColor={thumbColor}
+            panGestureEvent={panGestureEvent}
+            thumbWidth={thumbWidth}
+          />
+        ) : (
+          false
+        )}
       </View>
     )
   }
 
-  private layout = ({ nativeEvent: { layout: { width, height } } }: LayoutChangeEvent) => {
+  private layout = ({
+    nativeEvent: {
+      layout: { width, height },
+    },
+  }: LayoutChangeEvent) => {
     this.setState({ width, height })
   }
 }

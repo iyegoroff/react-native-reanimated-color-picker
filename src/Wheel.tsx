@@ -5,14 +5,14 @@ import {
   PanGestureHandlerGestureEvent,
   TapGestureHandler,
   PanGestureHandler,
-  State as GestureState
+  State as GestureState,
 } from 'react-native-gesture-handler'
 import { View, ViewStyle, StyleSheet } from 'react-native'
 import {
   SrcInComposition,
   SweepGradient,
   ImagePlaceholder,
-  RadialGradient
+  RadialGradient,
 } from 'react-native-image-filter-kit'
 import { HueSaturationWheel } from './HueSaturationWheel'
 
@@ -36,14 +36,24 @@ type Props = {
   readonly gestureState: Animated.Node<GestureState>
   readonly valueGestureState: Animated.Node<GestureState>
   readonly codeKey: number
-  readonly onColorChangeComplete?: ([hue, saturation, value]: readonly number[]) => void
+  readonly onColorChangeComplete?: ([
+    hue,
+    saturation,
+    value,
+  ]: readonly number[]) => void
   readonly onColorChange?: ([hue, saturation, value]: readonly number[]) => void
 }
 
 type GradientProps = React.ComponentProps<typeof SweepGradient>
 
 const colors: GradientProps['colors'] = [
-  '#FF0000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF', '#FF00FF', '#FF0000'
+  '#FF0000',
+  '#FFFF00',
+  '#00FF00',
+  '#00FFFF',
+  '#0000FF',
+  '#FF00FF',
+  '#FF0000',
 ]
 const stops: GradientProps['stops'] = [0, 0.165, 0.33, 0.495, 0.66, 0.825, 1]
 const radialColors: GradientProps['colors'] = ['#00000000', '#000000FF']
@@ -66,14 +76,22 @@ export const Wheel = React.memo((props: Props) => {
     valueGestureState,
     hue,
     saturation,
-    value
+    value,
   } = props
 
   const thumbOffset = -thumbSize / 2
   const imageSide = side - thumbSize
   const containerStyle = { width: side, height: side }
-  const imageStyle = { width: imageSide, height: imageSide, borderRadius: imageSide / 2 }
-  const thumbStyle = { width: thumbSize, height: thumbSize, borderRadius: thumbSize / 2 }
+  const imageStyle = {
+    width: imageSide,
+    height: imageSide,
+    borderRadius: imageSide / 2,
+  }
+  const thumbStyle = {
+    width: thumbSize,
+    height: thumbSize,
+    borderRadius: thumbSize / 2,
+  }
 
   return (
     <TapGestureHandler onHandlerStateChange={panGestureEvent}>
@@ -104,85 +122,82 @@ export const Wheel = React.memo((props: Props) => {
                 style={[
                   imageStyle,
                   styles.wheelOverlay,
-                  { opacity: wheelOpacity }
+                  { opacity: wheelOpacity },
                 ]}
               />
               <Animated.View
                 style={[
                   styles.thumb,
                   thumbStyle,
+                  // @ts-expect-error
                   {
                     backgroundColor: thumbColor,
                     transform: [
                       { translateX },
                       { translateY },
                       { translateX: thumbOffset },
-                      { translateY: thumbOffset }
-                    ]
-                  }
+                      { translateY: thumbOffset },
+                    ],
+                  },
                 ]}
               />
-              {onColorChangeComplete !== undefined
-                ? (
-                  <Animated.Code
-                    key={`change_complete_${codeKey}`}
-                    exec={
-                      cond<GestureState>(
-                        and(
-                          or(
-                            eq(gestureState, GestureState.END),
-                            eq(gestureState, GestureState.UNDETERMINED)
-                          ),
-                          or(
-                            eq(valueGestureState, GestureState.END),
-                            eq(valueGestureState, GestureState.UNDETERMINED)
-                          ),
-                          or(
-                            HueSaturationWheel.isGestureStartedInsideCircle(
-                              gestureState,
-                              startX,
-                              startY,
-                              thumbSize,
-                              side
-                            ),
-                            eq(valueGestureState, GestureState.END)
-                          )
+              {onColorChangeComplete !== undefined ? (
+                <Animated.Code
+                  key={`change_complete_${codeKey}`}
+                  exec={cond<GestureState>(
+                    and(
+                      or(
+                        eq(gestureState, GestureState.END),
+                        eq(gestureState, GestureState.UNDETERMINED)
+                      ),
+                      or(
+                        eq(valueGestureState, GestureState.END),
+                        eq(valueGestureState, GestureState.UNDETERMINED)
+                      ),
+                      or(
+                        HueSaturationWheel.isGestureStartedInsideCircle(
+                          gestureState,
+                          startX,
+                          startY,
+                          thumbSize,
+                          side
                         ),
-                        [
-                          set(
-                            valueGestureState as Animated.Value<GestureState>,
-                            GestureState.UNDETERMINED
-                          ),
-                          call([hue, saturation, value], onColorChangeComplete)
-                        ]
+                        eq(valueGestureState, GestureState.END)
                       )
-                    }
-                  />
-                )
-                : false}
-              {onColorChange !== undefined
-                ? (
-                  <Animated.Code
-                    key={`change_${codeKey}`}
-                    exec={
-                      cond(
-                        or(
-                          HueSaturationWheel.isGestureStartedInsideCircle(
-                            gestureState,
-                            startX,
-                            startY,
-                            thumbSize,
-                            side
-                          ),
-                          eq(valueGestureState, GestureState.BEGAN),
-                          eq(valueGestureState, GestureState.ACTIVE)
-                        ),
-                        call([hue, saturation, value], onColorChange)
-                      )
-                    }
-                  />
-                )
-                : false}
+                    ),
+                    [
+                      set(
+                        valueGestureState as Animated.Value<GestureState>,
+                        GestureState.UNDETERMINED
+                      ),
+                      call([hue, saturation, value], onColorChangeComplete),
+                    ]
+                  )}
+                />
+              ) : (
+                false
+              )}
+              {onColorChange !== undefined ? (
+                <Animated.Code
+                  key={`change_${codeKey}`}
+                  exec={cond(
+                    or(
+                      HueSaturationWheel.isGestureStartedInsideCircle(
+                        gestureState,
+                        startX,
+                        startY,
+                        thumbSize,
+                        side
+                      ),
+                      eq(valueGestureState, GestureState.BEGAN),
+                      eq(valueGestureState, GestureState.ACTIVE)
+                    ),
+                    call([hue, saturation, value], onColorChange)
+                  )}
+                />
+              ) : (
+                false
+              )}
             </View>
           </Animated.View>
         </PanGestureHandler>
@@ -201,20 +216,20 @@ type Styles = {
 const styles = StyleSheet.create<Styles>({
   container: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   wheel: {
     width: '100%',
     height: '100%',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   wheelOverlay: {
     position: 'absolute',
-    backgroundColor: 'black'
+    backgroundColor: 'black',
   },
   thumb: {
     position: 'absolute',
     borderColor: 'white',
-    borderWidth: 2
-  }
+    borderWidth: 2,
+  },
 })

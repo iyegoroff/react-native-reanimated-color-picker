@@ -26,7 +26,7 @@ const {
   greaterThan,
   cond,
   event,
-  interpolate,
+  interpolateNode,
   Extrapolate,
   lessThan,
   acos,
@@ -186,7 +186,7 @@ export class HueSaturationWheel extends React.PureComponent<Props, State> {
       angle
     )
 
-    const saturation = interpolate(dist, {
+    const saturation = interpolateNode(dist, {
       inputRange: [0, radius],
       outputRange: [0, 1],
       extrapolate: Extrapolate.CLAMP

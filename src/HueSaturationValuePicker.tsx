@@ -6,8 +6,8 @@ import { HSV, HueSaturationWheel } from './HueSaturationWheel'
 import { ValueSlider } from './ValueSlider'
 
 type Props = {
-  readonly wheelStyle: StyleProp<ViewStyle>,
-  readonly sliderStyle: StyleProp<ViewStyle>,
+  readonly wheelStyle: StyleProp<ViewStyle>
+  readonly sliderStyle: StyleProp<ViewStyle>
   readonly snapToCenter?: number
   readonly onColorChangeComplete?: (color: HSV) => void
   readonly onColorChange?: (color: HSV) => void
@@ -22,11 +22,13 @@ type State = {
   readonly valueGestureState: Animated.Node<GestureState>
 }
 
-export class HueSaturationValuePicker extends React.PureComponent<Props, State> {
-
+export class HueSaturationValuePicker extends React.PureComponent<
+  Props,
+  State
+> {
   state: State = {
     value: new Animated.Value(1),
-    valueGestureState: new Animated.Value(GestureState.UNDETERMINED)
+    valueGestureState: new Animated.Value(GestureState.UNDETERMINED),
   }
 
   render() {
@@ -39,7 +41,7 @@ export class HueSaturationValuePicker extends React.PureComponent<Props, State> 
       initialValue,
       initialSaturation,
       onColorChange,
-      onColorChangeComplete
+      onColorChangeComplete,
     } = this.props
     const { value, valueGestureState } = this.state
 
@@ -66,7 +68,10 @@ export class HueSaturationValuePicker extends React.PureComponent<Props, State> 
     )
   }
 
-  private valueInit = (value: Animated.Node<number>, valueGestureState: Animated.Node<number>) => {
+  private valueInit = (
+    value: Animated.Node<number>,
+    valueGestureState: Animated.Node<GestureState>
+  ) => {
     this.setState({ value, valueGestureState })
   }
 }
